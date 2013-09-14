@@ -1,0 +1,5 @@
+syntax: glob
+*.pyc
+*.swap
+syntax: regexp
+^build/
