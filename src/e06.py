@@ -22,11 +22,9 @@ def to_dict_book(book):
 def to_dict_author(author):
     return {'name': author.name, 'company': author.company}
 
-# 名前だけ返すよ!
 def to_dict_author_name_only(author):
     return {'name': author.name}
 
-# 名前だけ返す関数を呼ぶよ!
 def to_dict_book_name_only(book):
     return {'title': book.title,
             'author': to_dict_author_name_only(book.author)}
