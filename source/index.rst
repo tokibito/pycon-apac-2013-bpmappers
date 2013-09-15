@@ -164,3 +164,8 @@ bpmappersのバージョン
 ------
 
 * rebecca.todict_bpmappers
+
+@aodag++
+
+質疑応答
+--------
