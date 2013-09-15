@@ -15,23 +15,16 @@ class Author(object):
         self.company = company
 
 # マッピング用クラス
-class AuthorNameOnlyMapper(Mapper):
+class AuthorMapper(Mapper):
     name = RawField()
-
-class AuthorMapper(AuthorNameOnlyMapper):
     company = RawField()
 
-class BookNameOnlyMapper(Mapper):
+class BookMapper(Mapper):
     title = RawField()
-    author = DelegateField(AuthorNameOnlyMapper)
-
-class BookMapper(BookNameOnlyMapper):
     price = RawField()
     author = DelegateField(AuthorMapper)
 
 author = Author("tokibito", "BeProud")
 book = Book("Spam", 500, author)
 # マッピングとJSON変換(2種類)
-print("author:", json.dumps(AuthorMapper(author).as_dict()))
-print("book:", json.dumps(BookMapper(book).as_dict()))
-print("book(name only):", json.dumps(BookNameOnlyMapper(book).as_dict()))
+print("book:", json.dumps(BookMapper(book).as_dict(), indent=2))
