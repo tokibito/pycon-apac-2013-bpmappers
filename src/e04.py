@@ -9,8 +9,9 @@ class Book(object):
         self.author = author
 
 class Author(object):
-    def __init__(self, name):
+    def __init__(self, name, company):
         self.name = name
+        self.company = company
 
 # マッピング用関数
 def to_dict_book(book):
@@ -19,9 +20,9 @@ def to_dict_book(book):
             'author': to_dict_author(book.author)}
 
 def to_dict_author(author):
-    return {'name': author.name}
+    return {'name': author.name, 'company': author.company}
 
-author = Author("tokibito")
+author = Author("tokibito", "BeProud")
 book = Book("Spam", 500, author)
 # マッピングとJSON変換(2種類)
 print("author:", json.dumps(to_dict_author(author)))

@@ -1,6 +1,5 @@
-# 例6. bpmappersを使う場合(1対N)
+# 例4. bpmappersを使わない場合(1対N) リファクタリング
 import json
-from bpmappers import Mapper, RawField, DelegateField
 
 # データモデル
 class Book(object):
@@ -10,20 +9,31 @@ class Book(object):
         self.author = author
 
 class Author(object):
-    def __init__(self, name):
+    def __init__(self, name, company):
         self.name = name
+        self.company = company
 
-# マッピング用クラス
-class AuthorMapper(Mapper):
-    name = RawField()
+# マッピング用関数
+def to_dict_book(book):
+    return {'title': book.title,
+            'price': book.price,
+            'author': to_dict_author(book.author)}
 
-class BookMapper(Mapper):
-    title = RawField()
-    price = RawField()
-    author = DelegateField(AuthorMapper)
+def to_dict_author(author):
+    return {'name': author.name, 'company': author.company}
 
-author = Author("tokibito")
+# 名前だけ返すよ!
+def to_dict_author_name_only(author):
+    return {'name': author.name}
+
+# 名前だけ返す関数を呼ぶよ!
+def to_dict_book_name_only(book):
+    return {'title': book.title,
+            'author': to_dict_author_name_only(book.author)}
+
+author = Author("tokibito", "BeProud")
 book = Book("Spam", 500, author)
 # マッピングとJSON変換(2種類)
-print("author:", json.dumps(AuthorMapper(author).as_dict()))
-print("book:", json.dumps(BookMapper(book).as_dict()))
+print("author:", json.dumps(to_dict_author(author)))
+print("book:", json.dumps(to_dict_book(book)))
+print("book(name only):", json.dumps(to_dict_book_name_only(book)))
