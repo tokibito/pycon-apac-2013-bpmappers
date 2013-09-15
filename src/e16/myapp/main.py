@@ -6,7 +6,7 @@ from bpmappers import DelegateField
 class AuthorMapper(ModelMapper):
     class Meta:
         model = Author
-        exclude = ['id']
+        fields = ['name', 'company']
 
 class BookMapper(ModelMapper):
     author = DelegateField(AuthorMapper)
