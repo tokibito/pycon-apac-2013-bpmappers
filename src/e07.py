@@ -31,7 +31,7 @@ class BookMapper(BookNameOnlyMapper):
 
 author = Author("tokibito", "BeProud")
 book = Book("Spam", 500, author)
-# マッピングとJSON変換(2種類)
+# マッピングとJSON変換(3種類)
 print("author:", json.dumps(AuthorMapper(author).as_dict()))
 print("book:", json.dumps(BookMapper(book).as_dict()))
 print("book(name only):", json.dumps(BookNameOnlyMapper(book).as_dict()))

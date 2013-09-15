@@ -30,5 +30,5 @@ class BookMapper(Mapper):
 
 author = Author("tokibito", "BeProud")
 book = Book("Spam", 500, author)
-# マッピングとJSON変換(2種類)
+# マッピングとJSON変換
 print("book:", json.dumps(BookMapper(book).as_dict(), indent=2))

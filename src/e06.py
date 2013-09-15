@@ -31,7 +31,7 @@ def to_dict_book_name_only(book):
 
 author = Author("tokibito", "BeProud")
 book = Book("Spam", 500, author)
-# マッピングとJSON変換(2種類)
+# マッピングとJSON変換(3種類)
 print("author:", json.dumps(to_dict_author(author)))
 print("book:", json.dumps(to_dict_book(book)))
 print("book(name only):", json.dumps(to_dict_book_name_only(book)))
