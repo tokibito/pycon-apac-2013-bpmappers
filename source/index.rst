@@ -1,11 +1,6 @@
 bpmappersの紹介
 ===============
 
-セッションの説明
-----------------
-
-* bpmappersというPythonモジュールの説明です。
-
 お前だれよ?
 -----------
 
@@ -13,8 +8,15 @@ bpmappersの紹介
 * Python使用歴6年ぐらい
 * 株式会社ビープラウド勤務
 
-昔作った
---------
+一昨日
+------
+
+チュートリアルB
+
+実践で学ぶDjangoフレームワーク
+
+10年前
+------
 
 .. figure:: _static/bpmappers-fcp.png
 
@@ -33,53 +35,29 @@ bpmappersとは
 背景
 ----
 
-* モデルオブジェクトをJSONにしたい(=辞書にしたい)
-
-  * json.dumpsはオブジェクトは不可
+* データモデルのオブジェクトをJSONにしたい(=辞書にしたい)
 
 ここから始まった
 
-例1.モデルクラス
+例.モデルクラス
 -----------------
 
 * こういうモデルのオブジェクトを辞書にしたい
 
-.. code-block:: python
+.. figure:: _static/book-model.png
 
-   class Book(object):
-       def __init__(self, title, price, author):
-           self.title = title
-           self.price = price
-           self.author = author
+.. s6:: styles
 
-例1.マッピング用の関数
-----------------------
+    'div': {textAlign: 'center'},
+    'div/img': {width: '20%'},
 
-* オブジェクトを引数に受け取って辞書を返す関数を作る
+仕様1
+-----
 
-.. code-block:: python
+* BookモデルをJSONにする
 
-   def book_to_dict(book):
-       return {'title': book.title, 'price': book.price}
-
-例1.結果
---------
-
-.. code-block:: pycon
-
-   >>> book1 = Book("Spam", 1000)
-   >>> book2 = Book("Egg", 500)
-   >>> print book_to_dict(book1)
-   {'price': 1000, 'title': 'Spam'}
-   >>> print(book_to_dict(book2))
-   {'price': 500, 'title': 'Egg'}
-   >>> print json.dumps(book_to_dict(book1))
-   {"price": 500, "title": "Egg"}
-
-この時点では問題なかった。
-
-次に
-----
+次
+--
 
 ::
 
@@ -89,28 +67,100 @@ bpmappersとは
 
 (^_^;)
 
-変更点1
--------
+仕様2
+-----
 
-* authorも出せるようによろしく。
-* authorだけのJSONも追加で。
+* Bookの構造が変わりました
 
-例2.
-----
+.. figure:: _static/sample_model.png
 
-次に
-----
+.. s6:: styles
+
+    'div': {textAlign: 'center'},
+    'div/img': {width: '50%'},
+
+次
+--
 
 ::
 
-   ＿人人人人人人人人人＿
-   ＞　さらに仕様変更　＜
-   ￣Y^Y^Y^Y^Y^Y^Y^Y￣
+   ＿人人人人人人＿
+   ＞　仕様変更　＜
+   ￣Y^Y^Y^Y^Y￣
 
 （#^ω^）
 
-変更点2
--------
+仕様3
+-----
 
-* authorに属性持たせるのでよろしく
+* AuthorだけのJSON追加
+* BookのtitleとAuthorのnameのみのJSONを追加
 
+次
+--
+
+::
+
+   ＿人人人人人人＿
+   ＞　仕様変更　＜
+   ￣Y^Y^Y^Y^Y￣
+
+／(^o^)＼
+
+仕様4
+-----
+
+* Authorはやっぱり複数で...
+
+そしてどうなったか
+------------------
+
+* マッピング用の関数の見通しが悪くなった
+* 欲しいデータが引数にない! → 修正箇所多数
+
+＼(^o^)／
+
+そこで
+------
+
+* 似たようなマッピングルールはまとめよう
+* フックポイント用意して修正範囲減らそう
+
+bpmappers
+---------
+
+1. Mapperクラスを継承
+2. フィールドにマッピングルールを記述
+3. ツリー構造はDelegateFieldでMapper指定
+
+Djangoサポート
+--------------
+
+* bpmappers.djangomodel.ModelMapper
+* DjangoのモデルからMapperクラスを生成
+* ForeignKeyやManyToManyも追いかける
+
+bpmappersのバージョン
+---------------------
+
+* 最新の安定版は0.7
+* Python 2.5, 2.6, 2.7, 3.2, 3.3
+* Django 1.0〜1.5, Py3kは3.2, 3.3
+
+ドキュメント
+------------
+
+* http://bpmappers.readthedocs.org/
+* Pythonプロフェッショナルプログラミング(15-02)
+
+.. figure:: _static/python-professional-programing.png
+
+.. s6:: styles
+
+    'div': {textAlign: 'center'},
+    'div/img': {width: '30%'},
+
+その他
+------
+
+* rebecca.todict_bpmappers
