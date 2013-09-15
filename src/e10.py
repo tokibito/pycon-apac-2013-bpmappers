@@ -1,13 +1,13 @@
-# 例5. bpmappersを使う場合(親子関係)
+# 例10. 子がリストになっている場合のマッピング
 import json
-from bpmappers import Mapper, RawField, DelegateField
+from bpmappers import Mapper, RawField, ListDelegateField
 
 # データモデル
 class Book(object):
-    def __init__(self, title, price, author):
+    def __init__(self, title, price, authors):
         self.title = title
         self.price = price
-        self.author = author
+        self.authors = authors
 
 class Author(object):
     def __init__(self, name, company):
@@ -22,10 +22,10 @@ class AuthorMapper(Mapper):
 class BookMapper(Mapper):
     title = RawField()
     price = RawField()
-    author = DelegateField(AuthorMapper)
+    authors = ListDelegateField(AuthorMapper)
 
-author = Author("tokibito", "BeProud")
-book = Book("Spam", 500, author)
+author1 = Author("tokibito", "BeProud")
+author2 = Author("aodag", "BeProud")
+book = Book("Spam", 500, [author1, author2])
 # マッピングとJSON変換(2種類)
-print("author:", json.dumps(AuthorMapper(author).as_dict()))
-print("book:", json.dumps(BookMapper(book).as_dict()))
+print("book:", json.dumps(BookMapper(book).as_dict(), indent=2))

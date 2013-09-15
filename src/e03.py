@@ -1,4 +1,4 @@
-# 例3. bpmappersを使わない場合(1対N)
+# 例3. bpmappersを使わない場合(親子関係
 import json
 
 # データモデル

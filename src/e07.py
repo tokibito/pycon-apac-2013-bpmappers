@@ -1,4 +1,4 @@
-# 例7. bpmappersを使う場合(1対N) 名前だけ返すものを追加
+# 例7. bpmappersを使う場合(親子関係) 名前だけ返すものを追加
 import json
 from bpmappers import Mapper, RawField, DelegateField
 
