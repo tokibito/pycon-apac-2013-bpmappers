@@ -1,4 +1,4 @@
-# 例8. メソッドは指定するだけ。別名にする場合はキー名指定。
+# 例9. ドット区切りでの取得も可能
 import json
 from bpmappers import Mapper, RawField, DelegateField
 
@@ -21,12 +21,12 @@ class Author(object):
 class AuthorMapper(Mapper):
     name = RawField()
     company = RawField()
-    cp_code = RawField('company_code')
 
 class BookMapper(Mapper):
     title = RawField()
     price = RawField()
     author = DelegateField(AuthorMapper)
+    cp_code = RawField('author.company_code')
 
 author = Author("tokibito", "BeProud")
 book = Book("Spam", 500, author)
